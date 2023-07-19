@@ -1,0 +1,21 @@
+.containerCard{
+    width: 360px;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+    cursor:pointer;
+    border: 1px solid #000;
+    border-radius: 6px;
+}
+
+.textoCard{
+    font-size: 0.875rem;
+    
+}
+
+.cardImg{
+    width: 100%;
+    height: 100%;
+    border-radius: 6px;
+}
