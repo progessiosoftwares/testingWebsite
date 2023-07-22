@@ -1,6 +1,17 @@
+@import "~bootstrap/dist/css/bootstrap.min.css";
+
 *{
     margin: 0;
     padding: 0;
     border-box: box-sizing;
     font-family: 'Montserrat', sans-serif;
+}
+
+@media(max-width: 767px){
+    body{
+        width: 100vw;
+    } 
+    
+     
+
 }

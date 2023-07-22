@@ -10,3 +10,13 @@
     width: 13%;
     max-width: 100%;
 }
+
+@media (max-width: 767px) {
+    .cabecalho {
+      padding: 0.5em 1em; /* Ajuste o padding para se adaptar a tamanhos menores */
+    }
+  
+    .imgLogo {
+      width: 30%; /* Para dispositivos menores, deixe a imagem ocupar a largura total */
+    }
+  }

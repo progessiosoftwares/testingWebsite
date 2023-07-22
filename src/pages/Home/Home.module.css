@@ -23,3 +23,28 @@
 .rodape{
     padding-top: 50px;
 }
+
+.pagination{
+    display: flex;
+    justify-content: center;
+}
+
+@media (max-width: 767px){
+
+
+    .containerHome{
+        width:100%;
+        justify-content: center;
+        margin: 0 0;
+    }
+
+    .secaoCards {
+        grid-template-columns: repeat(1, 1fr); 
+        justify-items: center;
+      }
+    .tituloRecentes{
+        text-align: center;
+        margin: 10px 0;
+        font-size: 1rem;
+    }
+}

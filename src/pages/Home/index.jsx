@@ -4,6 +4,7 @@ import styles from './Home.module.css'
 import { collection, onSnapshot, query, orderBy } from 'firebase/firestore';
 import { db } from "../../firebaseConnection";
 import { Link, useParams } from "react-router-dom";
+import Pagination from 'react-bootstrap/Pagination'; // Importar o componente de paginação do react-bootstrap
 
 function Home() {
   const [posts, setPosts] = useState([]);
@@ -43,13 +44,17 @@ function Home() {
       pageNumbers.push(i);
     }
 
-    return pageNumbers.map((number) => (
-      <Link key={number} to={`/page/${number}`} style={{ textDecoration: "none" }}>
-        <span className={number === pageNumber ? styles.active : ''} onClick={() => handleClick(number)}>
-          {number}
-        </span>
-      </Link>
-    ));
+    return (
+      <Pagination>
+        {pageNumbers.map((number) => (
+          <Link key={number} to={`/page/${number}`} style={{ textDecoration: "none" }}>
+            <Pagination.Item className={number === pageNumber ? styles.active : ''} onClick={() => handleClick(number)}>
+              {number}
+            </Pagination.Item>
+          </Link>
+        ))}
+      </Pagination>
+    );
   };
 
   const indexOfLastPost = currentPage * postsPerPage;

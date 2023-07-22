@@ -25,6 +25,7 @@ function VideoLink() {
   const [videoData, setVideoData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     async function fetchVideoData() {
@@ -53,23 +54,39 @@ function VideoLink() {
       document.title = videoData.titulo + " - Novinhos HOT Brasil";
     }
   }, [videoData]);
-  
+
+  useEffect(() => {
+    // Definir o estado "isMobile" com base no tamanho da tela
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 767);
+    };
+
+    window.addEventListener("resize", handleResize);
+    handleResize(); // Verificar o tamanho da tela inicialmente
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   if (loading) {
-    return <div style={{textAlign: "center"}}>Loading...</div>;
+    return <div style={{ textAlign: "center" }}>Loading...</div>;
   }
-  
+
   if (error) {
     return <div>{error}</div>;
   }
-  
+
   if (!videoData) {
     return <div>No video data found.</div>;
   }
-  
+
   return (
     <div className={styles.containerVideo}>
       <h1>{videoData.titulo}</h1>
-      <div dangerouslySetInnerHTML={{ __html: videoData.video }} />
+      <div className={styles.videoWrapper}>
+        <div dangerouslySetInnerHTML={{ __html: videoData.video }} />
+      </div>
     </div>
   );
 }
