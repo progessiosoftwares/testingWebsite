@@ -18,13 +18,14 @@
   @media (max-width: 767px) {
  
     .videoWrapper iframe {
-      width: 320px;
-      height: 220px; /* Ajuste a altura para manter a proporção 4:3 */
+      width: 353px;
+      height: 263px; /* Ajuste a altura para manter a proporção 4:3 */
     }
 
     .containerVideo h1{
-        font-size: 1.3rem;
+        font-size: 0.8rem;
         margin-top: 70px;
+        text-align: center;
     }
 
     .containerVideo{
