@@ -26,10 +26,10 @@ export default function Admin() {
         async function loadTarefas() {
             const userDetail = localStorage.getItem("@detailUser");
             setUser(JSON.parse(userDetail));
-
+        
             if (userDetail) {
                 const data = JSON.parse(userDetail);
-
+        
                 const postsRef = collection(db, "posts");
                 const q = query(postsRef, orderBy("created", "desc"), where("userUid", "==", data?.uid));
                 const unsub = onSnapshot(q, (snapshot) => {
@@ -60,7 +60,7 @@ export default function Admin() {
         }
 
         if (edit?.id) {
-            handleUpdatePost();
+            await handleUpdatePost();
             return;
         }
 
