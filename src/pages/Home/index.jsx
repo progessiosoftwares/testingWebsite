@@ -3,39 +3,49 @@ import Card from "../../components/Card";
 import styles from './Home.module.css'
 import { collection, onSnapshot, query, orderBy } from 'firebase/firestore';
 import { db } from "../../firebaseConnection";
-import { Link, useParams } from "react-router-dom";
-import Pagination from 'react-bootstrap/Pagination'; // Importar o componente de paginação do react-bootstrap
+import { Link, useParams, useNavigate } from "react-router-dom";
+import Pagination from 'react-bootstrap/Pagination';
 
 function Home() {
   const [posts, setPosts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const postsPerPage = 12;
+  const navigate = useNavigate();
+
 
   useEffect(() => {
-    async function loadPosts() {
-      const postsRef = collection(db, "posts");
-      const q = query(postsRef, orderBy("created", "desc"));
-      const unsub = onSnapshot(q, (snapshot) => {
-        let listaPost = [];
-        snapshot.forEach((doc) => {
-          listaPost.push({
-            id: doc.id,
-            titulo: doc.data().titulo,
-            imagem: doc.data().imagem,
-          });
-        });
-        setPosts(listaPost);
-      });
-    }
+    const postsRef = collection(db, "posts");
+    const q = query(postsRef, orderBy("created", "desc"));
 
-    loadPosts();
-  }, []);
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      let listaPost = [];
+      snapshot.forEach((doc) => {
+        listaPost.push({
+          id: doc.id,
+          titulo: doc.data().titulo,
+          imagem: doc.data().imagem,
+        });
+      });
+      setPosts(listaPost);
+    });
+
+    return () => {
+      // Limpar o listener quando o componente for desmontado
+      unsubscribe();
+    };
+  }, []); // Apenas dispare isso uma vez, quando o componente for montado
 
   const { page } = useParams();
   const pageNumber = page ? parseInt(page, 10) : 1;
 
+  useEffect(() => {
+    setCurrentPage(pageNumber);
+  }, [pageNumber]);
+
   const handleClick = (number) => {
-    setCurrentPage(number);
+    // setCurrentPage(number);
+    // Navegue para a página correspondente
+    navigate(`/page/${number}`);
   };
 
   const renderPageNumbers = () => {
@@ -67,7 +77,10 @@ function Home() {
       <div className={styles.secaoCards}>
         {currentPosts.map((item) => (
           <div key={item.id}>
-            <Link to={`/video/${encodeURIComponent(item.titulo.replace(/\s+/g, '-').toLowerCase())}/${item.id}`} style={{ textDecoration: "none" }}>
+            <Link
+              to={`/video/${encodeURIComponent(item.titulo.replace(/\s+/g, '-').toLowerCase())}/${item.id}/page/${currentPage}`}
+              style={{ textDecoration: "none" }}
+            >
               <div>
                 <Card url={item.imagem}>{item.titulo}</Card>
               </div>

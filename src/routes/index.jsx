@@ -14,7 +14,7 @@ function AppRoutes() {
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/video/:title/:id" element={<VideoLink />} />
+        <Route path="/video/:title/:id/page/:page" element={<VideoLink />} />
         <Route path="/login" element={<Login />} />
         <Route path="/admin" element={<Private><Admin /></Private>} />
         <Route path="/page/:page" element={<Home />} />

@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom"; // Remova useLocation
 import { db } from "../../firebaseConnection";
 import { doc, getDoc } from "firebase/firestore";
 import styles from './VideoLink.module.css';
+import BackButton from "../../components/BackButton";
 
 async function fetchVideoDataById(id) {
   try {
@@ -21,17 +22,19 @@ async function fetchVideoDataById(id) {
 }
 
 function VideoLink() {
-  const { id, title } = useParams();
+  const { id, title, page } = useParams(); // Remova useLocation e use o page diretamente dos params
   const [videoData, setVideoData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
+  const currentPage = parseInt(page, 10); // Use o page diretamente dos params
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchVideoData() {
       try {
         const videoData = await fetchVideoDataById(id);
-
+        console.log(currentPage)
         if (videoData) {
           setVideoData(videoData);
         } else {
@@ -83,11 +86,12 @@ function VideoLink() {
 
   return (
     <div className={styles.containerVideo}>
+   <BackButton customClassName={styles.backButtonVideoLink} currentPage={currentPage} onGoBack={() => navigate(`/page/${currentPage}`)} />
       <h1>{videoData.titulo}</h1>
       <div className={styles.videoWrapper}>
         <div dangerouslySetInnerHTML={{ __html: videoData.video }} />
       </div>
-    </div>
+    </div>  
   );
 }
 
