@@ -1,0 +1,77 @@
+.containerHome{
+    margin: 0 100px;
+    margin-top: 20px;
+    display:flex;
+    flex-direction: column;
+  
+}
+
+.secaoCards{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 3rem;
+    margin-bottom: 60px;
+    
+}
+
+.tituloRecentes{
+    text-align: center;
+    margin-bottom: 15px;    
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    color: #f0faf7;
+}
+
+.rodape{
+    padding-top: 50px;
+}
+
+.pagination{
+    display: flex;
+    justify-content: center;
+    height: 50px;
+    background-color:#1C1C1C;
+    
+}
+
+.pagination ul{
+    margin-top: 0.3em;
+    box-sizing: content-box;
+    display: flex;
+    gap: 0.3em;
+}
+
+.pagination a{
+    background-color: transparent;
+}
+
+
+@media (max-width: 767px){
+
+
+    .containerHome{
+        width:100%;
+        justify-content: center;
+        margin: 0 0;
+    }
+
+    .secaoCards {
+        grid-template-columns: repeat(1, 1fr); 
+        justify-items: center;
+        align-items: center;   
+        grid-gap: 4rem;
+      }
+    .tituloRecentes{
+  
+        margin: 10px 0;
+        font-size: 1rem;
+    }
+
+    .tituloCardHome{
+        padding: 1em;
+        font-size: 1em;
+        word-spacing: 1px;
+    }
+
+    
+}
